@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "create-request-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/createRequest/CreateRequestWebPart.js",
+          "manifest": "./src/webparts/createRequest/CreateRequestWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "CreateRequestWebPartStrings": "lib/webparts/createRequest/loc/{locale}.js"
+  }
+}

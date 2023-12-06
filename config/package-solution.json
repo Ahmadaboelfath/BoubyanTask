@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "senior-sharepoint-developer-task-client-side-solution",
+    "id": "574da318-9bad-4ba6-b16c-e5a956c52e49",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true
+  },
+  "paths": {
+    "zippedPackage": "solution/senior-sharepoint-developer-task.sppkg"
+  }
+}

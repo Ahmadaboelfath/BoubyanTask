@@ -1,0 +1,52 @@
+<List xmlns:ows="Microsoft SharePoint" Title="Basic List" EnableContentTypes="TRUE" FolderCreation="FALSE" Direction="$Resources:Direction;" Url="Lists/Basic List" BaseType="0"
+    xmlns="http://schemas.microsoft.com/sharepoint/">
+    <MetaData>
+        <Fields>
+            <Field ID= "3fb928c1-ac06-4771-ae14-e7c551605895" Name="CustomerCIF" DisplayName="Customer CIF" Type="Text" Required="TRUE" />
+            <Field ID= "5b6043ab-68d3-46a2-b8bb-2586ebfe2865" Name="CustomerName" DisplayName="Customer Name" Type="Text" Required="TRUE" />
+            <Field ID= "bb12e618-d7ff-416d-931f-9b1c4e86f823" Name="Branch" DisplayName="Branch" Type="Text" Required="TRUE" />
+            <Field ID= "6e8d12ee-cc9e-43d6-8764-0502cecd54cc" Name="Details" DisplayName="Details" Type="Note" RichText="FALSE" NumLines="6" Required="TRUE" />
+            <Field ID= "210d8820-735f-4f83-87a2-6d37503db5cc" Name="Status" DisplayName="Status" Type="Choice" Required="FALSE">
+                <CHOICES>
+                    <CHOICE>Pending</CHOICE>
+                    <CHOICE>Approved,</CHOICE>
+                    <CHOICE>Rejected,</CHOICE>
+                    <CHOICE>Amended</CHOICE>
+                </CHOICES>
+                <Default>Pending</Default>
+            </Field>
+            <Field ID= "af093f93-6aeb-4115-8ae1-3abd57f345b7" Name="LastAction" DisplayName="Last Action" Type="Text" Required="FALSE" />
+            <Field ID= "01a1abe2-71bb-4774-8a20-a917c224bc0d" Name="LastActionBy" DisplayName="Last Action By" Type="Text" Required="FALSE" />
+            <Field ID= "d835ab99-9730-4e1f-aead-105b70d16d03" Name="LastActionDate" DisplayName="Last Action Date" Type="DateTime" Required="FALSE" />
+        </Fields>
+        <Views>
+            <View BaseViewID="1" Type="HTML" WebPartZoneID="Main" DisplayName="$Resources:core,objectiv_schema_mwsidcamlidC24;" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" SetupPath="pages\viewpage.aspx" ImageUrl="/_layouts/images/generic.png" Url="AllItems.aspx">
+                <XslLink Default="TRUE">main.xsl</XslLink>
+                <JSLink>clienttemplates.js</JSLink>
+                <RowLimit Paged="TRUE">30</RowLimit>
+                <Toolbar Type="Standard" />
+                <ViewFields>
+                    <FieldRef Name="CustomerCIF"></FieldRef>
+                    <FieldRef Name="CustomerName"></FieldRef>
+                    <FieldRef Name="Branch"></FieldRef>
+                    <FieldRef Name="Details"></FieldRef>
+                    <FieldRef Name="Status"></FieldRef>
+                    <FieldRef Name="LastAction"></FieldRef>
+                    <FieldRef Name="LastActionBy"></FieldRef>
+                    <FieldRef Name="LastActionDate"></FieldRef>
+
+                </ViewFields>
+                <Query>
+                    <OrderBy>
+                        <FieldRef Name="ID" />
+                    </OrderBy>
+                </Query>
+            </View>
+        </Views>
+        <Forms>
+            <Form Type="DisplayForm" Url="DispForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+            <Form Type="EditForm" Url="EditForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+            <Form Type="NewForm" Url="NewForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+        </Forms>
+    </MetaData>
+</List>
