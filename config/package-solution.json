@@ -5,8 +5,21 @@
     "id": "574da318-9bad-4ba6-b16c-e5a956c52e49",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "skipFeatureDeployment": true
+    "skipFeatureDeployment": true,
+    "features": [
+      {
+        "title": "customer-request",
+        "description": "asset-deployment-webpart-client-side-solution",
+        "id": "1ccc739b-24bf-47c9-9600-7abff410bd5a",
+        "version": "1.0.0.0",
+        "assets": {
+          "elementManifests": ["elements.xml"],
+          "elementFiles": ["schema.xml"]
+        }
+      }
+    ]
   },
+
   "paths": {
     "zippedPackage": "solution/senior-sharepoint-developer-task.sppkg"
   }
