@@ -1,29 +1,35 @@
-import * as React from 'react';
-import * as ReactDom from 'react-dom';
-import { Version } from '@microsoft/sp-core-library';
+import * as React from "react";
+import * as ReactDom from "react-dom";
+import { Version } from "@microsoft/sp-core-library";
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
-} from '@microsoft/sp-webpart-base';
+  PropertyPaneTextField,
+} from "@microsoft/sp-webpart-base";
 
-import * as strings from 'CreateRequestWebPartStrings';
-import CreateRequest from './components/CreateRequest';
-import { ICreateRequestProps } from './components/ICreateRequestProps';
+import * as strings from "CreateRequestWebPartStrings";
+import CreateRequest from "./components/CreateRequest";
+import { ICreateRequestProps } from "./components/ICreateRequestProps";
+import { sp } from "@pnp/sp";
 
 export interface ICreateRequestWebPartProps {
   description: string;
 }
 
 export default class CreateRequestWebPart extends BaseClientSideWebPart<ICreateRequestWebPartProps> {
+  public onInit(): Promise<any> {
+    return super.onInit().then(() => {
+      sp.setup({
+        spfxContext: this.context,
+      });
+    });
+  }
 
   public render(): void {
-    const element: React.ReactElement<ICreateRequestProps > = React.createElement(
-      CreateRequest,
-      {
-        description: this.properties.description
-      }
-    );
+    const element: React.ReactElement<ICreateRequestProps> =
+      React.createElement(CreateRequest, {
+        description: this.properties.description,
+      });
 
     ReactDom.render(element, this.domElement);
   }
@@ -33,7 +39,7 @@ export default class CreateRequestWebPart extends BaseClientSideWebPart<ICreateR
   }
 
   protected get dataVersion(): Version {
-    return Version.parse('1.0');
+    return Version.parse("1.0");
   }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
@@ -41,20 +47,20 @@ export default class CreateRequestWebPart extends BaseClientSideWebPart<ICreateR
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: strings.PropertyPaneDescription,
           },
           groups: [
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
-              ]
-            }
-          ]
-        }
-      ]
+                PropertyPaneTextField("description", {
+                  label: strings.DescriptionFieldLabel,
+                }),
+              ],
+            },
+          ],
+        },
+      ],
     };
   }
 }
