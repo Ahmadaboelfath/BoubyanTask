@@ -10,7 +10,7 @@ import {
 import * as strings from "CreateRequestWebPartStrings";
 import CreateRequest from "./components/CreateRequest";
 import { ICreateRequestProps } from "./components/ICreateRequestProps";
-import { sp } from "@pnp/sp";
+import ContextInjection from "../../ContextInjection";
 
 export interface ICreateRequestWebPartProps {
   description: string;
@@ -19,9 +19,7 @@ export interface ICreateRequestWebPartProps {
 export default class CreateRequestWebPart extends BaseClientSideWebPart<ICreateRequestWebPartProps> {
   public onInit(): Promise<any> {
     return super.onInit().then(() => {
-      sp.setup({
-        spfxContext: this.context,
-      });
+      ContextInjection.getInstance().initializeContext(this.context);
     });
   }
 
