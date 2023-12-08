@@ -6,6 +6,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid/dist/styles/ag-grid.css";
 import "ag-grid/dist/styles/ag-theme-material.css";
 import { GridOptions } from "ag-grid-community";
+import { PrimaryButton } from "office-ui-fabric-react";
 
 export default class HomePage extends React.Component<
   RouteComponentProps<IHomePageProps>,
@@ -81,7 +82,12 @@ export default class HomePage extends React.Component<
             width: "100%",
           }}
         >
-          <button>New Request</button>
+          <PrimaryButton
+            style={{ backgroundColor: "#ff3c00", padding: "18px" }}
+            onClick={() => this.props.history.push("/new")}
+          >
+            New Request
+          </PrimaryButton>
         </div>
         <div
           className="ag-theme-material"
