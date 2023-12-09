@@ -1,1 +1,7 @@
-export default interface IHomePageState {}
+import { GridOptions } from "ag-grid-community";
+import Request from "../../Models/Entities/Request";
+
+export default interface IHomePageState {
+  requests: Request[];
+  gridOptions: GridOptions;
+}

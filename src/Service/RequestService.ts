@@ -14,7 +14,7 @@ export default class RequestService {
 
   public async getRequests(): Promise<Request[]> {
     try {
-      const requestUrl = `${this._context.pageContext.web.absoluteUrl}/_api/web/Lists/GetByTitle('${this._listName}')`;
+      const requestUrl = `${this._context.pageContext.web.absoluteUrl}/_api/web/Lists/GetByTitle('${this._listName}')/items`;
       const response = await this._context.spHttpClient.get(
         requestUrl,
         SPHttpClient.configurations.v1
@@ -36,6 +36,47 @@ export default class RequestService {
         }));
       } else {
         throw new Error("error occurred while retrieving data");
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  public async addRequest(request: Request): Promise<Request> {
+    const requestSPItem = {
+      CustomerCIF: request.customerCIF,
+      CustomerName: request.customerName,
+      Branch: request.branch,
+      Details: request.details,
+      Status: request.status,
+      LastAction: request.lastAction,
+      LastActionBy: request.lastActionBy,
+      LastActionDate: request.lastActionDate,
+    };
+    try {
+      const requestUrl = `${this._context.pageContext.web.absoluteUrl}/_api/web/Lists/GetByTitle('${this._listName}')/items`;
+      const res = await this._context.spHttpClient.post(
+        requestUrl,
+        SPHttpClient.configurations.v1,
+        {
+          body: JSON.stringify(requestSPItem),
+        }
+      );
+
+      if (res.ok) {
+        const jsonResp = await res.json();
+        return {
+          customerCIF: jsonResp.CustomerCIF,
+          customerName: jsonResp.CustomerName,
+          branch: jsonResp.Branch,
+          details: jsonResp.Details,
+          status: jsonResp.Status,
+          lastAction: jsonResp.LastAction,
+          lastActionBy: jsonResp.LastActionBy,
+          lastActionDate: jsonResp.LastActionDate
+            ? new Date(jsonResp.LastActionDate)
+            : null,
+        };
       }
     } catch (e) {
       throw e;
