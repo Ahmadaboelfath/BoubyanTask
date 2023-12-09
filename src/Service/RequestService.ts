@@ -23,6 +23,7 @@ export default class RequestService {
       if (response.ok) {
         const jsonResp = await response.json();
         return jsonResp.value.map((item) => ({
+          requestId: item.Id,
           customerCIF: item.CustomerCIF,
           customerName: item.CustomerName,
           branch: item.Branch,
@@ -80,6 +81,41 @@ export default class RequestService {
       }
     } catch (e) {
       throw e;
+    }
+  }
+
+  public async updateRequest(request: Request): Promise<any> {
+    const requestSPItem = {
+      CustomerCIF: request.customerCIF,
+      CustomerName: request.customerName,
+      Branch: request.branch,
+      Details: request.details,
+      Status: request.status,
+      LastAction: request.lastAction,
+      LastActionBy: request.lastActionBy,
+      LastActionDate: request.lastActionDate,
+    };
+
+    const requestUrl = `${this._context.pageContext.web.absoluteUrl}/_api/web/Lists/GetByTitle('${this._listName}')/items('${request.requestId}')`;
+    const res = await this._context.spHttpClient.post(
+      requestUrl,
+      SPHttpClient.configurations.v1,
+      {
+        headers: {
+          Accept: "application/json;odata=nometadata",
+          "Content-type": "application/json;odata=nometadata",
+          "odata-version": "",
+          "IF-MATCH": "*",
+          "X-HTTP-Method": "MERGE",
+        },
+        body: JSON.stringify(requestSPItem),
+      }
+    );
+
+    if (res.ok) {
+      return request;
+    } else {
+      throw new Error("Error occurred while updating data");
     }
   }
 }

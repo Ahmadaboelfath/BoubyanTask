@@ -1,4 +1,5 @@
 export default class Request {
+  requestId?: string;
   customerCIF: string;
   customerName: string;
   branch: string;
