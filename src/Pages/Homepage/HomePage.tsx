@@ -8,16 +8,19 @@ import "ag-grid/dist/styles/ag-theme-material.css";
 import { GridOptions } from "ag-grid-community";
 import { PrimaryButton, Spinner, SpinnerSize } from "office-ui-fabric-react";
 import RequestService from "../../Service/RequestService";
+import UserService from "../../Service/UserService";
 
 export default class HomePage extends React.Component<
   RouteComponentProps<IHomePageProps>,
   IHomePageState
 > {
   private readonly _requestsService: RequestService;
+  private readonly _userService: UserService;
 
   constructor(props) {
     super(props);
     this._requestsService = new RequestService();
+    this._userService = new UserService();
     this.state = {
       requests: [],
       gridOptions: {
@@ -48,15 +51,18 @@ export default class HomePage extends React.Component<
   }
 
   componentDidMount(): void {
-    this._requestsService.getRequests().then((requests) => {
-      this.setState((prevState) => {
-        const newState = { ...prevState };
-        newState.requests = requests;
-        const gridOptions = { ...prevState.gridOptions };
-        gridOptions.rowData = requests;
-        newState.gridOptions = gridOptions;
+    this._userService.getCurrentUserGroups().then((groups) => {
+      console.log(groups);
+      this._requestsService.getRequests().then((requests) => {
+        this.setState((prevState) => {
+          const newState = { ...prevState };
+          newState.requests = requests;
+          const gridOptions = { ...prevState.gridOptions };
+          gridOptions.rowData = requests;
+          newState.gridOptions = gridOptions;
 
-        return newState;
+          return newState;
+        });
       });
     });
   }
